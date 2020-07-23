@@ -13,7 +13,9 @@ class WalletsListCell: UITableViewCell {
         let view = UIImageView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        let heightConstraint = view.heightAnchor.constraint(equalToConstant: 50)
+        heightConstraint.priority = UILayoutPriority(999)
+        heightConstraint.isActive = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         return view
     }()
@@ -36,6 +38,10 @@ class WalletsListCell: UITableViewCell {
         contentView.addSubview(stackView)
         stackView.snapMargins(to: contentView, edges: UIEdgeInsets(margin: 10))
         stackView.spacing = 8
+        
+        amountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        walletLabel.lineBreakMode = .byWordWrapping
+        walletLabel.numberOfLines = 0
         
         stackView.addArrangedSubview(iconView)
         stackView.addArrangedSubview(walletLabel)

@@ -20,7 +20,9 @@ class AssetsListCell: UITableViewCell {
         let view = UIImageView(frame: .zero)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.contentMode = .scaleAspectFit
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        let heightConstraint = view.heightAnchor.constraint(equalToConstant: 50)
+        heightConstraint.priority = UILayoutPriority(999)
+        heightConstraint.isActive = true
         view.widthAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         return view
     }()
@@ -43,6 +45,10 @@ class AssetsListCell: UITableViewCell {
         contentView.addSubview(stackView)
         stackView.snapMargins(to: contentView, edges: UIEdgeInsets(margin: 10))
         stackView.spacing = 16
+        
+        amountLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+        nameLabel.lineBreakMode = .byWordWrapping
+        nameLabel.numberOfLines = 0
         
         stackView.addArrangedSubview(iconView)
         stackView.addArrangedSubview(nameLabel)
