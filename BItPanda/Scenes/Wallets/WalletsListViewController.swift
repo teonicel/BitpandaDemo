@@ -37,6 +37,12 @@ class WalletsListViewController: UIViewController, WalletsListViewProtocol {
     func updateView() {
         tableView.reloadData()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+            tableView.reloadData()
+        }
+    }
 }
 
 extension WalletsListViewController: UITableViewDataSource {

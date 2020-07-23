@@ -45,7 +45,9 @@ class WalletsListCell: UITableViewCell {
     }
     
     public func config(with data: Wallet) {
-        iconView.sd_setImage(with: URL(string: SymbolsIcons.retrieveUrlStr(for: data.symbol)), completed: nil)
+        let isDark = traitCollection.userInterfaceStyle == .dark
+        let isBackgroundChanged = data.type == .fiatWallet || data.isDefault
+        iconView.sd_setImage(with: URL(string: SymbolsIcons.retrieveUrlStr(for: data.symbol, isDark: isDark && isBackgroundChanged)), completed: nil)
         walletLabel.text = "\(data.name) (\(data.symbol))"
         amountLabel.text = data.balance.twoDigitsString
         walletLabel.sizeToFit()

@@ -10,12 +10,20 @@ import Foundation
 
 
 final public class SymbolsIcons {
-    public static var symbolIconsDictionary = [String: String]()
-    public static func store(urlStr: String, for key: String) {
-        symbolIconsDictionary[key] = urlStr
+    public static var symbolIconsDictionaryDefault = [String: String]()
+    public static var symbolIconsDictionaryDarkMode = [String: String]()
+    public static func store(urlStr: String, for key: String, isDark: Bool = false) {
+        if isDark {
+             symbolIconsDictionaryDarkMode[key] = urlStr
+        } else {
+             symbolIconsDictionaryDefault[key] = urlStr
+        }
+       
     }
     
-    public static func retrieveUrlStr(for key: String) -> String {
-        return symbolIconsDictionary[key] ?? ""
+    public static func retrieveUrlStr(for key: String, isDark: Bool = false) -> String {
+        let light = symbolIconsDictionaryDefault[key] ?? ""
+        let dark = symbolIconsDictionaryDarkMode[key] ?? light
+        return isDark ? dark : light
     }
 }

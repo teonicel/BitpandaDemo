@@ -59,7 +59,8 @@ public struct Asset: Decodable {
     }
     
     enum AttributesKeys: String, CodingKey {
-        case iconWhite = "logo"
+        case icon = "logo"
+        case iconWhite = "logo_white"
         case iconBlack = "logo_dark"
         case name
         case symbol
@@ -75,8 +76,11 @@ public struct Asset: Decodable {
         type = try values.decode(AssetType.self, forKey: .type)
         
         let attributes = try values.nestedContainer(keyedBy: AttributesKeys.self, forKey: .attributes)
-        iconWhite = try attributes.decode(String.self, forKey: .iconWhite)
-        iconBlack = try attributes.decode(String.self, forKey: .iconBlack)
+        let whiteIcon =  try attributes.decodeIfPresent(String.self, forKey: .iconWhite)
+        let blackIcon = try attributes.decodeIfPresent(String.self, forKey: .iconBlack)
+        let defaultIcon = try attributes.decode(String.self, forKey: .icon)
+        iconWhite = whiteIcon ?? defaultIcon
+        iconBlack = blackIcon ?? defaultIcon
         name = try attributes.decode(String.self, forKey: .name)
         symbol = try attributes.decode(String.self, forKey: .symbol)
         if let averagePriceString = try attributes.decodeIfPresent(String.self, forKey: .averagePrice) {

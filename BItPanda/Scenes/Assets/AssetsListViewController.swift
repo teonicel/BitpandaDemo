@@ -54,6 +54,12 @@ final class AssetsListViewController: UIViewController, AssetsListViewProtocol {
     @objc private func segmentControl(_ segmentedControl: UISegmentedControl) {
         presenter?.selectAssetsFor(index: segmentedControl.selectedSegmentIndex)
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+            tableView.reloadData()
+        }
+    }
 }
 
 extension AssetsListViewController: UITableViewDataSource {

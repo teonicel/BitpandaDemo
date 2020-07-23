@@ -29,6 +29,7 @@ final public class DataProvider: DataProviderProtocol {
                     let all = DataProvider.shared.masterData.cryptocoins + DataProvider.shared.masterData.commodities + DataProvider.shared.masterData.fiats
                     all.forEach {
                         SymbolsIcons.store(urlStr: $0.iconWhite, for: $0.symbol)
+                        SymbolsIcons.store(urlStr: $0.iconBlack, for: $0.symbol, isDark: true)
                     }
                     print("")
                 } catch {

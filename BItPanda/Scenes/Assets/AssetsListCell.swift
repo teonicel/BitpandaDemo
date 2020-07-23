@@ -52,9 +52,10 @@ class AssetsListCell: UITableViewCell {
     }
     
     public func config(with data: Asset) {
+        let isDark = traitCollection.userInterfaceStyle == .dark
         let nf = AssetsListCell.numberFormatter
         nf.fractionDigits = data.precision
-        iconView.sd_setImage(with: URL(string: data.iconWhite), completed: nil)
+        iconView.sd_setImage(with: URL(string: isDark ? data.iconWhite : data.iconBlack), completed: nil)
         nameLabel.text = "\(data.name) (\(data.symbol))"
         amountLabel.text = nf.string(for: data.averagePrice)
         nameLabel.sizeToFit()
